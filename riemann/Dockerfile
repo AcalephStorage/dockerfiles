@@ -25,8 +25,8 @@ RUN apt-get install -y --force-yes wget lsb-release sudo
 
 RUN apt-get install -y openjdk-7-jre-headless
 
-ADD riemann_0.2.4_all.deb /tmp/riemann_0.2.4_all.deb
-RUN dpkg -i /tmp/riemann_0.2.4_all.deb
+RUN wget -q http://aphyr.com/riemann/riemann_0.2.4_all.deb
+RUN dpkg -i riemann_0.2.4_all.deb
 
-EXPOSE 5555:5556
+EXPOSE 5555 5556
 ENTRYPOINT ["/sbin/init"]
