@@ -1,4 +1,5 @@
 # BUILD: sudo docker build -t acaleph/riemann .
+# RUN: sudo docker run -d acaleph/riemann
 
 FROM ubuntu:precise
 MAINTAINER acaleph "admin@acale.ph"
@@ -27,6 +28,5 @@ RUN apt-get install -y openjdk-7-jre-headless
 ADD riemann_0.2.4_all.deb /tmp/riemann_0.2.4_all.deb
 RUN dpkg -i /tmp/riemann_0.2.4_all.deb
 
-EXPOSE 4567
-CMD ["status"]
-ENTRYPOINT ["service", "riemann"]
+EXPOSE 5555:5556
+ENTRYPOINT ["/sbin/init"]
