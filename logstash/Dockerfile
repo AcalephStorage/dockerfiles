@@ -15,7 +15,7 @@ ENV LC_ALL     en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
 # What tag to use for lumberjack
-ENV LUMBERJACK_TAG ACALEPH
+ENV LUMBERJACK_TAG LOGSTASH
 
 # Number of elasticsearch workers
 ENV ELASTICWORKERS 1
