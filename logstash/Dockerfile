@@ -21,7 +21,7 @@ ENV LUMBERJACK_TAG LOGSTASH
 ENV ELASTICWORKERS 1
 
 RUN apt-get update
-RUN apt-get install -y wget openjdk-6-jre
+RUN apt-get install -y wget openjdk-7-jre
 RUN wget https://download.elasticsearch.org/logstash/logstash/logstash-1.3.3-flatjar.jar -O /opt/logstash.jar --no-check-certificate 2>/dev/null
 
 ADD run.sh /usr/local/bin/run
