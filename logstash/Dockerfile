@@ -5,7 +5,7 @@
 #   external ES:
 #     sudo docker run -d -e ES_HOST=<ES_HOST> -e ES_PORT=<ES_PORT> -p 5043:5043 -p 514:514 -p 9200:9200 -p 9292:9292 -p 9300:9300 acaleph/logstash
 
-FROM      debian:sid
+FROM ubuntu:precise
 MAINTAINER acaleph "admin@acale.ph"
 
 # Ensure UTF-8
