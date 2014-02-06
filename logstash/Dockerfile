@@ -38,9 +38,6 @@ EXPOSE 514
 # Lumberjack
 EXPOSE 5043
 
-# Log Stash UI
-EXPOSE 9292
-
 # Elastic Search
 EXPOSE 9200
 EXPOSE 9300
