@@ -46,4 +46,6 @@ EXPOSE 9292
 EXPOSE 9200
 EXPOSE 9300
 
+VOLUMES ['/data', '/opt/logstash.conf']
+
 CMD ["/usr/local/bin/run"]
