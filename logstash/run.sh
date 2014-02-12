@@ -39,4 +39,4 @@ output {
 EOF
 
 
-java -jar /opt/logstash.jar agent -f /opt/logstash.conf
+java -jar /opt/logstash.jar agent -f /opt/logstash.conf -- web
