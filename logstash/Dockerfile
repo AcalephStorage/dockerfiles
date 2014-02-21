@@ -19,14 +19,20 @@ ENV LUMBERJACK_TAG LOGSTASH
 
 # Number of elasticsearch workers
 ENV ELASTICWORKERS 1
+# Make sure jRuby is installed
+ENV USE_JRUBY 1
 
 RUN echo 'deb http://us.archive.ubuntu.com/ubuntu/ precise universe' >> /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y wget openjdk-7-jre
-RUN wget https://download.elasticsearch.org/logstash/logstash/logstash-1.3.3-flatjar.jar -O /opt/logstash.jar --no-check-certificate 2>/dev/null
+RUN wget https://download.elasticsearch.org/logstash/logstash/logstash-1.4.0.beta1.tar.gz -O /opt/logstash-1.4.0.beta1.tar.gz --no-check-certificate 2>/dev/null
+RUN tar zxvf /opt/logstash-1.4.0.beta1.tar.gz
 
-ADD run.sh /usr/local/bin/run
-RUN chmod +x /usr/local/bin/run
+
+RUN /opt/logstash-1.4.0.beta1/bin/logstash deps
+
+ADD run.sh /opt/logstash-1.4.0.beta1/bin/run.sh
+RUN chmod +x opt/logstash-1.4.0.beta1/bin/run.sh
 RUN rm -rf /tmp/*
 
 RUN mkdir /opt/certs/
@@ -48,4 +54,4 @@ EXPOSE 9300
 
 VOLUMES ['/data', '/opt/logstash.conf']
 
-CMD ["/usr/local/bin/run"]
+CMD ["opt/logstash-1.4.0.beta1/bin/run.sh"]

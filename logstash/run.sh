@@ -51,5 +51,4 @@ output {
 }
 EOF
 
-
-java -jar /opt/logstash.jar agent -f /opt/logstash.conf -- web
+/opt/logstash-1.4.0.beta1/bin/logstash agent -f /opt/logstash.conf -- web
