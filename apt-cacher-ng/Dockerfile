@@ -1,5 +1,5 @@
-# BUILD: sudo docker build -t acaleph/riemann .
-# RUN: sudo docker run -d -v /etc/riemann:/etc/riemann -p 5555:5555 -p 5556:5556 acaleph/riemann
+# BUILD: sudo docker build -t acaleph/apt-cacher-ng:base .
+# RUN: sudo docker run -d -v /var/log:/var/log -v /var/cache:/var-cache -p 3142:3142 acaleph/apt-cacher-ng:base
 
 FROM ubuntu:precise
 MAINTAINER acaleph "admin@acale.ph"
@@ -25,6 +25,13 @@ RUN apt-get install -y --force-yes wget lsb-release sudo
 
 RUN apt-get install -y apt-cacher-ng
 RUN echo 'Acquire::http { Proxy "http://localhost:3142"; };' | tee /etc/apt/apt.conf
+
+WORKDIR /home/apt-cacher-ng
+ADD post-build.sh /home/apt-cacher-ng/
+RUN chown root:root /home/apt-cacher-ng/post-build.sh
+RUN chmod u+x /home/apt-cacher-ng/post-build.sh
+
+#VOLUME ["/var/log/apt-cacher-ng", "/var/cache/apt-cacher-ng"]
 
 EXPOSE 3142
 #ENTRYPOINT ["/usr/sbin/apt-cacher-ng", "-c", "/etc/apt-cacher-ng", "pidfile=/var/run/apt-cacher-ng/pid", "SocketPath=/var/run/apt-cacher-ng/socket", "foreground=1"]
