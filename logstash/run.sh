@@ -50,4 +50,8 @@ output {
 }
 EOF
 
-/opt/logstash/bin/logstash agent -f /opt/logstash.conf -- web
+# Due to a bug in 1.4.0 this doesn't work. Using honcho instead
+# /opt/logstash/bin/logstash agent -f /opt/logstash.conf -- web
+
+cd /opt/logstash; /usr/local/bin/honcho start
+
