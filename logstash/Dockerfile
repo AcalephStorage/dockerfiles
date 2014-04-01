@@ -38,7 +38,7 @@ RUN cd /tmp ; dpkg -i /fuse.deb
 
 RUN apt-get install -y wget openjdk-7-jre
 RUN wget https://download.elasticsearch.org/logstash/logstash/logstash-1.4.0.tar.gz -O /opt/logstash-1.4.0.tar.gz --no-check-certificate 2>/dev/null
-RUN tar zxvf /opt/logstash-1.4.0.tar.gz && mv /opt/logstash-1.4.0 /opt/logstash
+RUN cd /opt;tar zxf /var/tmp/logstash-1.4.0.tar.gz && mv /opt/logstash-1.4.0 /opt/logstash
 
 # RUN /opt/logstash/bin/logstash deps
 
@@ -64,4 +64,4 @@ EXPOSE 9300
 
 VOLUMES ['/data', '/opt/logstash.conf']
 
-CMD ["opt/logstash/bin/run.sh"]
+CMD ["/opt/logstash/bin/run.sh"]
