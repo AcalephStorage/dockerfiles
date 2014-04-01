@@ -1,6 +1,6 @@
 #!/bin/bash
-ES_HOST=${ES_HOST:-127.0.0.1}
-ES_PORT=${ES_PORT:-9300}
+ES_HOST=${ES_PORT_9200_TCP_ADDR:-127.0.0.1}
+ES_PORT=${ES_PORT_9200_TCP_PORT:-9300}
 EMBEDDED="false"
 WORKERS=${ELASTICWORKERS:-1}
 
@@ -14,14 +14,14 @@ input {
     type => syslog
     port => 514
   }
-  lumberjack {
-    port => 5043
+  # lumberjack {
+  #   port => 5043
 
-    ssl_certificate => "/opt/certs/logstash-forwarder.crt"
-    ssl_key => "/opt/certs/logstash-forwarder.key"
+  #   ssl_certificate => "/opt/certs/logstash-forwarder.crt"
+  #   ssl_key => "/opt/certs/logstash-forwarder.key"
 
-    type => "$LUMBERJACK_TAG"
-  }
+  #   type => "$LUMBERJACK_TAG"
+  # }
 }
 filter {
   if [type] == "syslog" {
@@ -51,4 +51,4 @@ output {
 }
 EOF
 
-/opt/logstash-1.4.0.beta1/bin/logstash agent -f /opt/logstash.conf -- web
+/opt/logstash/bin/logstash agent -f /opt/logstash.conf -- web
