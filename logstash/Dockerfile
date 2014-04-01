@@ -24,6 +24,18 @@ ENV USE_JRUBY 1
 
 RUN echo 'deb http://us.archive.ubuntu.com/ubuntu/ precise universe' >> /etc/apt/sources.list
 RUN apt-get update
+
+# A hack to fix fuse issue with Java 7
+RUN apt-get install -y --force-yes libfuse2
+RUN cd /tmp ; apt-get download fuse
+RUN cd /tmp ; dpkg-deb -x fuse_* .
+RUN cd /tmp ; dpkg-deb -e fuse_*
+RUN cd /tmp ; rm fuse_*.deb
+RUN cd /tmp ; echo -en '#!/bin/bash\nexit 0\n' > DEBIAN/postinst
+RUN cd /tmp ; dpkg-deb -b . /fuse.deb
+RUN cd /tmp ; dpkg -i /fuse.deb
+
+
 RUN apt-get install -y wget openjdk-7-jre
 RUN wget https://download.elasticsearch.org/logstash/logstash/logstash-1.4.0.tar.gz -O /opt/logstash-1.4.0.tar.gz --no-check-certificate 2>/dev/null
 RUN tar zxvf /opt/logstash-1.4.0.tar.gz && mv /opt/logstash-1.4.0 /opt/logstash
