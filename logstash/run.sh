@@ -38,8 +38,7 @@ filter {
 }
 output {
   stdout {
-      debug => true
-      debug_format => "json"
+      codec => "json"
   }
 
   elasticsearch {
