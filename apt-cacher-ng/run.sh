@@ -8,4 +8,4 @@
 docker run -d \
 -v /var/log/apt-cacher-ng:/var/log/apt-cacher-ng \
 -v /var/cache/apt-cacher-ng:/var/cache/apt-cacher-ng \
--p 3142:3142 acaleph/apt-cacher-ng:vagrant
+-p 3142:3142 acaleph/apt-cacher-ng

@@ -1,11 +1,6 @@
 #!/bin/sh
 
-docker build -t acaleph/apt-cacher-ng:base .
-
-docker run -v /var/log:/var/log -v /var/cache:/var/cache acaleph/apt-cacher-ng:base /home/apt-cacher-ng/post-build.sh
-
-LAST=`docker ps -l -q`
-docker commit -run='{"Cmd": ["/usr/sbin/apt-cacher-ng", "-c", "/etc/apt-cacher-ng", "pidfile=/var/run/apt-cacher-ng/pid", "SocketPath=/var/run/apt-cacher-ng/socket", "foreground=1"]}' $LAST acaleph/apt-cacher-ng:vagrant
+docker build -t acaleph/apt-cacher-ng .
 
 cat <<EOF
 
