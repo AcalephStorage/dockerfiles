@@ -1,7 +1,7 @@
 # BUILD: sudo docker build -t acaleph/apt-cacher-ng:base .
 # RUN: sudo docker run -d -v /var/log:/var/log -v /var/cache:/var-cache -p 3142:3142 acaleph/apt-cacher-ng:base
 
-FROM ubuntu:precise
+FROM ubuntu:trusty
 MAINTAINER acaleph "admin@acale.ph"
 
 # Ensure UTF-8
@@ -14,20 +14,21 @@ RUN dpkg-divert --local --rename --add /sbin/initctl
 RUN ln -sf /bin/true /sbin/initctl
 
 # Repo and packages
-RUN echo deb http://archive.ubuntu.com/ubuntu precise main | tee /etc/apt/sources.list
-RUN echo deb http://archive.ubuntu.com/ubuntu precise-updates main | tee -a /etc/apt/sources.list
-RUN echo deb http://archive.ubuntu.com/ubuntu precise universe | tee -a /etc/apt/sources.list
-RUN echo deb http://archive.ubuntu.com/ubuntu precise-updates universe | tee -a /etc/apt/sources.list
 RUN apt-get update
-RUN apt-get install -y --force-yes wget lsb-release sudo
+RUN apt-get install -y sudo
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget
+RUN apt-get install -y lsb-release
 
 #####
 
-RUN apt-get install -y apt-cacher-ng
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-cacher-ng
+
+# Run apt-cacher-ng in offline mode. This presumes that /var/cache/apt-cacher-ng has already been created and pre-seeded
+RUN echo 'Offlinemode: 1' >> /etc/apt-cacher-ng/acng.conf
+
 #RUN echo 'Acquire::http { Proxy "http://localhost:3142"; };' | tee /etc/apt/apt.conf
 
-VOLUME /var/log/apt-cacher-ng
-VOLUME /var/cache/apt-cacher-ng
+VOLUME ["/var/log/apt-cacher-ng", "/var/cache/apt-cacher-ng"]
 
 EXPOSE 3142
 ADD run /usr/local/bin/run

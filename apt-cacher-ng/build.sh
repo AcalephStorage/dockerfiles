@@ -1,8 +1,6 @@
 #!/bin/sh
 
-docker build -t acaleph/apt-cacher-ng .
-
-cat <<EOF
+docker build -t acaleph/apt-cacher-ng . && cat <<EOF
 
 NOTE:
 -----
