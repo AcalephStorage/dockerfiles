@@ -26,8 +26,8 @@ ENV USE_JRUBY 1
 RUN echo 'deb http://us.archive.ubuntu.com/ubuntu/ precise universe' >> /etc/apt/sources.list
 RUN apt-get update
 
-RUN apt-get install python python-pip -y
-RUN pip install honcho
+# RUN apt-get install python python-pip -y
+# RUN pip install honcho
 
 # A hack to fix fuse issue with Java 7
 RUN apt-get install -y --force-yes libfuse2
@@ -41,15 +41,15 @@ RUN cd /tmp ; dpkg -i /fuse.deb
 
 
 RUN apt-get install -y wget openjdk-7-jre
-RUN wget https://download.elasticsearch.org/logstash/logstash/logstash-1.4.0.tar.gz -O /opt/logstash-1.4.0.tar.gz --no-check-certificate 2>/dev/null
-RUN cd /opt;tar zxf /opt/logstash-1.4.0.tar.gz && mv /opt/logstash-1.4.0 /opt/logstash
+RUN wget https://download.elasticsearch.org/logstash/logstash/logstash-1.4.1.tar.gz -O /opt/logstash-1.4.1.tar.gz --no-check-certificate 2>/dev/null
+RUN cd /opt;tar zxf /opt/logstash-1.4.1.tar.gz && mv /opt/logstash-1.4.1 /opt/logstash
 
 # RUN /opt/logstash/bin/logstash deps
 
 ADD run.sh /opt/logstash/bin/run.sh
 RUN chmod +x opt/logstash/bin/run.sh
 
-ADD Procfile /opt/logstash/
+# ADD Procfile /opt/logstash/
 
 #RUN mkdir /opt/certs/
 #ADD certs/logstash-forwarder.crt /opt/certs/logstash-forwarder.crt
